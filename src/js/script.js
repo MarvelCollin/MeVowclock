@@ -2,24 +2,19 @@ import { Car } from "./car/car.js";
 import { Renderer } from "./car/helper/renderer.js";
 import { Direction } from "./car/helper/direction.js";
 
-// Add a constant for the number of cats
-const NUMBER_OF_CATS = 5;
+const NUMBER_OF_CATS = 1;
 
-// Initialize an array to hold multiple cat instances
 const cats = [];
 
-// Function to generate random spawn position with random x and fixed y
 function getRandomPosition() {
     const canvas = document.getElementById("catCanvas");
-    const x = Math.random() * (canvas.width - 64) + 32; // Ensure within canvas width
-    const y = window.innerHeight - 100; // Fixed y position
+    const x = Math.random() * (canvas.width - 64) + 32;
+    const y = window.innerHeight - 100;
     return { x, y };
 }
 
-// Instantiate a single Renderer
-const renderer = new Renderer("catCanvas", 2); // Single Renderer for one canvas
+const renderer = new Renderer("catCanvas", 2);
 
-// Instantiate multiple cats with random positions
 for (let i = 0; i < NUMBER_OF_CATS; i++) {
     const cat = new Car(getRandomPosition());
     cats.push(cat);
@@ -31,12 +26,10 @@ const canvas = document.getElementById("catCanvas");
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  
-  // Reposition all cats with new random x positions
   cats.forEach(cat => {
       cat.setPosition(
         Math.random() * (canvas.width - 64) + 32, 
-        window.innerHeight - 100 // Fixed y position on resize
+        window.innerHeight - 100 
       ); 
   });
 }
@@ -44,7 +37,6 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-// Update the game loop to handle multiple cats
 function gameLoop(timestamp) {
   cats.forEach(cat => {
       cat.update(timestamp);

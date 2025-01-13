@@ -2,6 +2,8 @@ import { SpriteLoader } from './spriteLoader.js';
 
 export class Renderer {
   constructor(canvasId, defaultScale = 2) {
+    this.debug = false;
+
     this.canvas = document.getElementById(canvasId);
     if (!this.canvas) {
         console.error(`Canvas with id "${canvasId}" not found.`);
@@ -46,11 +48,13 @@ export class Renderer {
 
     this.ctx.drawImage(sprite, 0, -sprite.height);
 
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = 'red';
-    this.ctx.lineWidth = 2;
-    this.ctx.rect(0, -sprite.height, sprite.width, sprite.height);
-    this.ctx.stroke();
+    if(this.debug) {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = 'red';
+        this.ctx.lineWidth = 2;
+        this.ctx.rect(0, -sprite.height, sprite.width, sprite.height);
+        this.ctx.stroke();
+    }
 
     this.ctx.restore();
   }

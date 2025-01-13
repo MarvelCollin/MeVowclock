@@ -12,25 +12,24 @@ export class CarSleepState {
     async initializeSprite() {
         try {
             const response = await fetch('/assets/assets.json');
-            console.log('Fetching assets.json for sleep state');
+            // console.log('Fetching assets.json for sleep state');
             
             if (!response.ok) throw new Error('Network response was not ok');
             const assets = await response.json();
-            console.log('Assets loaded:', assets);
+            // console.log('Assets loaded:', assets);
             
             const goingToSleepConfig = assets.CAT.GOING_TO_SLEEP;
             const sleepConfig = assets.CAT.SLEEP;
             
             const spritePaths = [];
-            // Generate absolute paths
             for(let i = 1; i <= goingToSleepConfig.FRAMES; i++) {
                 const path = `/assets/cat/going_to_sleep/sleep_${i}.png`;
-                console.log('Adding sprite path:', path);
+                // console.log('Adding sprite path:', path);
                 spritePaths.push(path);
             }
             for(let i = 1; i <= sleepConfig.FRAMES; i++) {
                 const path = `/assets/cat/sleep/sleep_${i}.png`;
-                console.log('Adding sprite path:', path);
+                // console.log('Adding sprite path:', path);
                 spritePaths.push(path);
             }
             

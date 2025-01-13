@@ -7,20 +7,20 @@ export class CarSpriteHandler {
         this.frameCount = 0;
         this.direction = Direction.RIGHT;
         this.sprites = null;
-        this.frameDelay = 100; // Default delay
+        this.frameDelay = 100; 
         this.lastFrameTime = 0;
     }
 
     setSprites(sprites, delay = 100) {
         if (!sprites || sprites.length === 0) {
-            console.error('Attempting to set empty sprites array');
+            // console.error('Attempting to set empty sprites array');
             return;
         }
-        console.log('Setting sprites:', {
-            count: sprites.length,
-            delay: delay,
-            firstSprite: sprites[0]
-        });
+        // console.log('Setting sprites:', {
+        //     count: sprites.length,
+        //     delay: delay,
+        //     firstSprite: sprites[0]
+        // });
         this.sprites = sprites;
         this.frameCount = sprites.length;
         this.currentFrame = 0;
@@ -40,10 +40,10 @@ export class CarSpriteHandler {
     getCurrentSprite() {
         const sprite = this.sprites ? this.sprites[this.currentFrame] : null;
         if (!sprite) {
-            console.log('No sprite available:', {
-                sprites: this.sprites?.length,
-                currentFrame: this.currentFrame
-            });
+            // console.log('No sprite available:', {
+            //     sprites: this.sprites?.length,
+            //     currentFrame: this.currentFrame
+            // });
         }
         return sprite;
     }

@@ -45,17 +45,17 @@ export class Car {
                         this.setDirection(Direction.RIGHT);
                     }
                     this.currentStateDuration = Math.random() * 3000 + 2000; // 2-5 seconds
-                    console.log(`Setting walk state towards x: ${this.targetPosition.x}`);
+                    // console.log(`Setting walk state towards x: ${this.targetPosition.x}`);
                     break;
                     
                 case 'sleep':
                     this.currentStateDuration = Math.random() * 3000 + 4000; // 4-7 seconds
-                    console.log(`Setting sleep state for duration: ${this.currentStateDuration}ms`);
+                    // console.log(`Setting sleep state for duration: ${this.currentStateDuration}ms`);
                     break;
                     
                 case 'idle':
                     this.currentStateDuration = Math.random() * 2000 + 1000; // 1-3 seconds
-                    console.log(`Setting idle state for duration: ${this.currentStateDuration}ms`);
+                    // console.log(`Setting idle state for duration: ${this.currentStateDuration}ms`);
                     break;
             }
             
@@ -70,7 +70,7 @@ export class Car {
 
     update(timestamp) {
         if (this.state) {
-            console.log(this.state);
+            // console.log(this.state);
             const currentTime = Date.now();
             const stateElapsed = currentTime - this.stateStartTime;
 
@@ -79,13 +79,12 @@ export class Car {
                 const distance = Math.abs(dx);
 
                 if (distance > 1) {
-                    const speed = this.state.speed; // Use speed from the current state
+                    const speed = this.state.speed;
                     const direction = dx > 0 ? 1 : -1;
                     this.position.x += speed * direction;
                 }
             }
 
-            // Let the current state update itself
             this.state.update();
             this.spriteHandler.updateFrame(timestamp);
         }
@@ -125,10 +124,9 @@ export class Car {
     }
 
     setPosition(x, y) {
-        // Ensure cat stays within canvas boundaries and y is fixed
         const canvas = document.getElementById('catCanvas');
-        const margin = 20; // margin from bottom
+        const margin = 20; 
         this.position.x = Math.max(0, Math.min(x, canvas.width - 64)); // assuming sprite width is 64
-        this.position.y = window.innerHeight - 100; // Fixed y position
+        this.position.y = window.innerHeight - 100;
     }
 }

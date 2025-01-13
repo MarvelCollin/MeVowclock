@@ -5,7 +5,7 @@ export class CarMoveState {
     constructor(car, isRunning = false, spriteLoader) {
         this.car = car;
         this.isRunning = isRunning;
-        this.speed = isRunning ? 4 : 2;
+        this.speed = isRunning ? 8 : 4;
         this.spriteLoader = spriteLoader; 
         this.initializeSprite();
     }
@@ -39,16 +39,15 @@ export class CarMoveState {
         let moved = false;
 
         const maxX = canvas.width;
-
         switch(direction) {
             case Direction.LEFT:
-                if (position.x > 32) { // Reduced margin for smoother movement
+                if (position.x > 32) {
                     position.x -= this.speed;
                     moved = true;
                 }
                 break;
             case Direction.RIGHT:
-                if (position.x < maxX - 64) { // Ensure within canvas width
+                if (position.x < maxX - 64) {
                     position.x += this.speed;
                     moved = true;
                 }
@@ -58,12 +57,10 @@ export class CarMoveState {
         if (moved) {
             this.car.setPosition(position.x, position.y);
         } else {
-            // Reverse direction if boundary reached
             this.car.setDirection(
                 direction === Direction.LEFT ? Direction.RIGHT : Direction.LEFT
             );
         }
 
-        // Removed random state transition to ensure continuous movement
     }
 }

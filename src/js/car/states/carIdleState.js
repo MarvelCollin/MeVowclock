@@ -3,7 +3,7 @@ import { SpriteLoader } from '../helper/spriteLoader.js';
 export class CarIdleState {
     constructor(car, spriteLoader) {
         this.car = car;
-        this.spriteLoader = spriteLoader; // Use the passed SpriteLoader
+        this.spriteLoader = spriteLoader; 
         this.initializeSprite();
     }
 
@@ -14,7 +14,7 @@ export class CarIdleState {
             
             const assets = await response.json();
             const idleConfig = assets.CAT.IDLE_FRONT; 
-            console.log('Loading IDLE_FRONT sprites:', idleConfig);
+            // console.log('Loading IDLE_FRONT sprites:', idleConfig);
             
             const spritePaths = [];
             for(let i = 1; i <= idleConfig.FRAMES; i++) {
