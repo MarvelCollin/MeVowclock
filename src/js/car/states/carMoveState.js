@@ -42,7 +42,6 @@ export class CarMoveState {
 
         position.x = Math.max(0, Math.min(position.x, canvas.width - 64)); 
 
-        // Update the car's position
         this.car.setPosition(position.x, position.y);
 
         if (position.x === previousX) {

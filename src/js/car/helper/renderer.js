@@ -12,7 +12,7 @@ export class Renderer {
     this.ctx = this.canvas.getContext("2d");
     this.sprites = new Map();
 
-    this.ctx.imageSmoothingEnabled = true; // Enable smoothing for better quality
+    this.ctx.imageSmoothingEnabled = true;
     this.ctx.webkitImageSmoothingEnabled = true;
     this.ctx.mozImageSmoothingEnabled = true;
 
@@ -37,7 +37,6 @@ export class Renderer {
 
     this.ctx.scale(scale, scale);
 
-    // Adjust position for high-DPI displays
     this.ctx.translate(x / scale, y / scale);
 
     if (flipX) {
@@ -73,6 +72,6 @@ export class Renderer {
   resizeCanvas(width, height) {
     this.canvas.width = width;
     this.canvas.height = height;
-    this.ctx.imageSmoothingEnabled = true; // Enable smoothing after resizing
+    this.ctx.imageSmoothingEnabled = true; 
   }
 }

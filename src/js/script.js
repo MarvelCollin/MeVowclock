@@ -2,14 +2,14 @@ import { Car } from "./car/car.js";
 import { Renderer } from "./car/helper/renderer.js";
 import { Direction } from "./car/helper/direction.js";
 
-const NUMBER_OF_CATS = 1;
+const NUMBER_OF_CATS = 3;
 
 const cats = [];
 
 function getRandomPosition() {
     const canvas = document.getElementById("catCanvas");
     const x = Math.random() * (canvas.width - 64) + 32;
-    const y = window.innerHeight - 100;
+    const y = window.innerHeight;
     return { x, y };
 }
 

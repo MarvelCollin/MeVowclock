@@ -70,7 +70,7 @@ export class Car {
 
     update(timestamp) {
         if (this.state) {
-            console.log(this.state);
+            // console.log(this.state);
             const currentTime = Date.now();
             const stateElapsed = currentTime - this.stateStartTime;
 
@@ -126,7 +126,7 @@ export class Car {
     setPosition(x, y) {
         const canvas = document.getElementById('catCanvas');
         const margin = 20; 
-        this.position.x = Math.max(0, Math.min(x, canvas.width - 64)); // assuming sprite width is 64
-        this.position.y = window.innerHeight - 100;
+        this.position.x = Math.max(0, Math.min(x, canvas.width - 64)); 
+        this.position.y = window.innerHeight - 18;
     }
 }
