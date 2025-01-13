@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Digital Clock</title>
+</head>
+<body>
+    <div id="setup-screen" class="container">
+        <h2>⏰ MeVclock</h2>
+        <div id="error-message" class="error-message hidden"></div>
+        <div class="timer-controls">
+            <div class="time-input">
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" required>
+            </div>
+            <div class="time-input">
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" required>
+            </div>
+            <button id="startButton">Start Clock</button>
+        </div>
+    </div>
+
+    <div id="clock-screen" class="container hidden">
+        <div class="split-layout">
+            <div class="notes-section">
+                <h3><i class="fas fa-clipboard-list"></i> Proses Pengerjaan:
+                    <button id="editNotesButton" class="edit-notes-btn"><i class="fas fa-edit"></i></button>
+                </h3>
+                <ol>
+                    <li>Jangan lupa spam Ctrl + S (Save)</li>
+                </ol>
+                <!-- Input field for adding a new Proses Pengerjaan note -->
+                <div id="editProsesPengerjaan" class="edit-note hidden">
+                    <input type="text" id="newProsesPengerjaan" placeholder="Add new note">
+                    <button id="saveProsesPengerjaan">Save</button>
+                </div>
+                
+                <h3><i class="fas fa-upload"></i> Proses Pengumpulan:
+                    <button id="editNotesButtonPengumpulan" class="edit-notes-btn"><i class="fas fa-edit"></i></button>
+                </h3>
+                <ol>
+                    <li>Ctrl + S di semua aplikasi pengerjaan</li>
+                    <li>Pastikan extension aplikasi sudah benar</li>
+                    <li>Tutup aplikasinya</li>
+                    <li>Zip Filenya</li>
+                    <li>Upload ke website + FTP</li>
+                    <li>Download ulang dan pastikan sudah benar</li>
+                    <li>Kabarin Assisten Lab kalau sudah</li>
+                    <li>Finalize</li>
+                </ol>
+                <!-- Input field for adding a new Proses Pengumpulan note -->
+                <div id="editProsesPengumpulan" class="edit-note hidden">
+                    <input type="text" id="newProsesPengumpulan" placeholder="Add new note">
+                    <button id="saveProsesPengumpulan">Save</button>
+                </div>
+            </div>
+            <div class="clock-section">
+                <h2>Current Time</h2>
+                <div id="current-time"></div>
+                <div id="duration-left"></div>
+                <div id="status"></div>
+                <button id="resetButton">Reset Timer</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
