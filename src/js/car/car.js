@@ -48,11 +48,11 @@ export class Car {
                     break;
                     
                 case 'sleep':
-                    this.currentStateDuration = Math.random() * 3000 + 4000; // 4-7 seconds
+                    this.currentStateDuration = Math.random() * 3000 + 7000; // 4-7 seconds
                     break;
                     
                 case 'idle':
-                    this.currentStateDuration = Math.random() * 2000 + 1000; // 1-3 seconds
+                    this.currentStateDuration = Math.random() * 2000 + 5000; // 5-7 seconds
                     break;
             }
             

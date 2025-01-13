@@ -17,14 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const defaultData = {
         prosesPengumpulan: [
-            "Ctrl + S disemua aplikasi yang dikerjakan",
-            "**Periksa kembali** apakah extensionnya benar sesuai dengan soal",
-            "Tutup semua aplikasi",
-            "**Zip** semua filenya",
-            "Upload di **website + FTP**",
-            "**Download ulang**",
-            "Periksa kembali kepada **assistant lab** untuk FTP",
-            "**Finalize**"
+            "CTRL + S DISEMUA APLIKASI YANG DIKERJAKAN",
+            "**PERIKSA KEMBALI** APAKAH EXTENSIONNYA BENAR SESUAI DENGAN SOAL",
+            "TUTUP SEMUA APLIKASI",
+            "**ZIP** SEMUA FILENYA",
+            "UPLOAD DI **WEBSITE + FTP**",
+            "**DOWNLOAD ULANG**",
+            "PERIKSA KEMBALI KEPADA **ASSISTANT LAB** UNTUK FTP",
+            "**FINALIZE**"
         ]
     };
 
@@ -59,21 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Cat visibility toggle
     elements.showCatsCheckbox.addEventListener('change', (e) => {
         elements.catCanvas.style.display = e.target.checked ? 'block' : 'none';
     });
 
-    // Replace the notes handling code
     const notesContainer = document.querySelector('.notes-container');
     const notesSections = document.querySelectorAll('.notes-section');
 
     if (notesContainer && notesSections.length > 0) {
-        // Get the content from the original notes
         const pengerjaanNotes = document.querySelector('.notes-section ol').innerHTML;
         const pengumpulanNotes = document.querySelectorAll('.notes-section ol')[1].innerHTML;
 
-        // Create and append new structure to sidear
         notesContainer.innerHTML = `
         
             <div class="config-section">
@@ -84,15 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Hide original notes section in clock screen
         notesSections.forEach(section => {
             section.style.display = 'none';
         });
     }
 
-    // Configuration handling
     function addConfigItem(input, list, storageKey) {
-        const text = input.value.trim();
+        const text = input.value.trim().toUpperCase(); 
         if (!text) return;
 
         const li = document.createElement('li');
@@ -104,14 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
         list.appendChild(li);
         input.value = '';
 
-        // Save to storage
         const items = Array.from(list.children).map(item => item.textContent.trim());
         localStorage.setItem(storageKey, JSON.stringify(items));
 
-        // Add delete handler
         li.querySelector('.delete-item').addEventListener('click', () => {
             li.remove();
-            // Update storage
             const updatedItems = Array.from(list.children).map(item => item.textContent.trim());
             localStorage.setItem(storageKey, JSON.stringify(updatedItems));
         });
@@ -128,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadSavedItems() {
         const pengumpulan = JSON.parse(localStorage.getItem('prosesPengumpulan')) || defaultData.prosesPengumpulan;
-
         pengumpulanList.innerHTML = '';
 
         pengumpulan.forEach((item, index) => {
@@ -142,10 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             pengumpulanList.appendChild(li);
 
-            // Add delete event listener
             li.querySelector('.delete-item').addEventListener('click', () => {
                 li.remove();
-                // Update storage
                 const updatedItems = Array.from(pengumpulanList.children).map(item => {
                     const text = item.querySelector('.text').innerHTML.replace(/<strong>(.*?)<\/strong>/g, '**$1**');
                     return text;
@@ -159,16 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSavedItems();
     updateNotesList();
 
-    // Add this new function to handle settings visibility
     function toggleSettingsVisibility(show) {
         elements.settingsToggle.style.opacity = show ? '1' : '0';
         elements.settingsToggle.style.visibility = show ? 'visible' : 'hidden';
     }
 
-    // Initially hide settings on setup screen
     toggleSettingsVisibility(false);
 
-    // Update existing startButton click handler
     document.getElementById("startButton").addEventListener("click", () => {
         startTime = document.getElementById("startTime").value;
         endTime = document.getElementById("endTime").value;
@@ -230,7 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('resetDefaults').addEventListener('click', () => {
         if (confirm('Are you sure you want to reset to default settings?')) {
-            localStorage.setItem('prosesPengumpulan', JSON.stringify(defaultData.prosesPengumpulan));
+            const uppercasedDefaults = defaultData.prosesPengumpulan.map(item => item.toUpperCase());
+            localStorage.setItem('prosesPengumpulan', JSON.stringify(uppercasedDefaults));
             loadSavedItems();
             updateNotesList();
         }
@@ -270,12 +256,8 @@ function updateTime() {
       document.getElementById(
         "duration-left"
       ).textContent = `Time Remaining: ${duration}`;
-      document.getElementById("status").textContent = "Time is running!";
-      document.getElementById("status").className = "running";
     } else {
       document.getElementById("duration-left").textContent = "Time's up!";
-      document.getElementById("status").textContent = "Session ended";
-      document.getElementById("status").className = "ended";
     }
   }
 }
@@ -336,7 +318,4 @@ document.getElementById("startTime").addEventListener("keydown", (e) => {
 });
 
 document.getElementById("startTime").addEventListener("keydown", (e) => {
-  if (e.key === "Tab" && !e.shiftKey) {
-    document.getElementById("endTime").focus();
-  }
-});
+  if (e.key === "Tab" && !e.shiftKey) {    document.getElementById("endTime").focus();  }});

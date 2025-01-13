@@ -2,7 +2,7 @@ import { Car } from "./car/car.js";
 import { Renderer } from "./car/helper/renderer.js";
 import { Direction } from "./car/helper/direction.js";
 
-const NUMBER_OF_CATS = 3;
+const NUMBER_OF_CATS = 4;
 
 const cats = [];
 

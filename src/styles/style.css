@@ -34,6 +34,7 @@
   position: fixed;
   left: -350px;
   top: 0;
+  width: 300px;
   height: 100vh;
   background: white;
   box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
@@ -96,19 +97,6 @@
   accent-color: var(--primary-color);
 }
 
-.setting-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.setting-item label {
-  font-size: 1rem;
-  color: var(--secondary-color);
-}
-
 :root {
   --primary-color: #3498db;
   --secondary-color: #2c3e50;
@@ -149,7 +137,7 @@ body {
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   color: #ffffff;
-  font-size: 3.5rem;
+  font-size: 6rem;
   font-weight: 700;
   letter-spacing: 5px;
   transition: all 0.3s ease;
@@ -246,7 +234,6 @@ body {
 }
 
 .time-input input {
-  /* padding: 0.8rem 1.2rem; */
   border-radius: 8px;
   border: 2px solid var(--input-border);
   background: #fff;
@@ -375,11 +362,6 @@ button:hover {
   font-family: "Orbitron", sans-serif;
 }
 
-#status.running {
-  background: #27ae60;
-  color: white;
-}
-
 #status.ended {
   background: #e74c3c;
   color: white;
@@ -498,7 +480,6 @@ input::placeholder {
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
-}
 
 .note-group {
   font-weight: bold;
@@ -569,6 +550,10 @@ input::placeholder {
   font-size: 1.05em;
 }
 
+.clock-screen {
+    z-index: 2;
+}
+
 .clock-section {
   background: #ffffff;
   padding: 2rem;
@@ -577,10 +562,10 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: auto;
   backdrop-filter: blur(10px);
   position: relative;
   z-index: 2;
+  margin: auto; /* Center the clock-section */
 }
 
 .edit-notes-btn {
@@ -616,6 +601,11 @@ input::placeholder {
   .sidebar {
     width: 250px; 
   }
+
+  #setup-screen {
+    max-width: 450px;
+    padding: 1.8rem;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -645,6 +635,11 @@ input::placeholder {
 
   .notes-section li {
     font-size: 1.1rem;
+  }
+
+  #setup-screen {
+    max-width: 400px;
+    padding: 1.5rem;
   }
 }
 
@@ -705,6 +700,11 @@ input::placeholder {
   .sidebar {
     width: 100%;
   }
+
+  #setup-screen {
+    max-width: 100%;
+    padding: 1.2rem;
+  }
 }
 
 @media (min-width: 1201px) {
@@ -727,6 +727,25 @@ input::placeholder {
 @media (max-width: 500px) {
   #setup-screen {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  #setup-screen {
+    padding: 1rem;
+  }
+
+  .time-input label {
+    font-size: 1.1rem;
+  }
+
+  .time-input input {
+    width: 100%;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
   }
 }
 
@@ -759,24 +778,6 @@ input::placeholder {
 
 .edit-note button:hover {
   background: #34495e;
-}
-
-#catCanvas {
-  background: #f0f0f0;
-  margin: 10px auto;
-  display: block;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  margin: 20px auto;
-  display: block;
-  image-rendering: pixelated;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
 }
 
 .config-section {
