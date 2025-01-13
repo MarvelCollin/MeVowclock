@@ -29,8 +29,9 @@ export class CarIdleState {
     }
 
     update() {
-        if (Math.random() < 0.001) { 
-            this.car.setState('sleep');
-        }
+        // Optionally, remove or adjust conditions that switch states
+        // if (Math.random() < 0.001) { 
+        //     this.car.setState('sleep');
+        // }
     }
 }

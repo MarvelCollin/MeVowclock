@@ -3,6 +3,10 @@ import { SpriteLoader } from './spriteLoader.js';
 export class Renderer {
   constructor(canvasId, defaultScale = 2) {
     this.canvas = document.getElementById(canvasId);
+    if (!this.canvas) {
+        console.error(`Canvas with id "${canvasId}" not found.`);
+        return;
+    }
     this.ctx = this.canvas.getContext("2d");
     this.sprites = new Map();
 
@@ -15,7 +19,9 @@ export class Renderer {
   }
 
   clear() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.ctx) {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
   }
 
   async loadSprite(spritePath) {
@@ -23,7 +29,7 @@ export class Renderer {
   }
 
   drawSprite(sprite, x, y, flipX = false, scale = this.scale) {
-    if (!sprite) return;
+    if (!sprite || !this.ctx) return;
 
     this.ctx.save();
 

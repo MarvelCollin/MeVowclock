@@ -28,7 +28,7 @@ export class SpriteLoader {
         try {
             const loadedImages = await Promise.all(
                 spritePaths.map(path => this.loadSprite(path))
-            );
+             );
             return loadedImages;
         } catch (error) {
             console.error('Error loading sprites:', error);
