@@ -1,0 +1,28 @@
+{
+    "CAT": {
+        "SLEEP": {
+            "PATH": "../assets/cat/sleep/sleep_",
+            "FRAMES": 9,
+            "TYPE": "LOOP",
+            "DELAY": 100
+        },
+        "IDLE": {
+            "PATH": "../assets/cat/idle_front/idle_",
+            "FRAMES": 3,
+            "TYPE": "LOOP",
+            "DELAY": 100
+        },
+        "RUN": {
+            "PATH": "../assets/cat/run/run_",
+            "FRAMES": 3,
+            "TYPE": "LOOP",
+            "DELAY": 100
+        },
+        "WALK": {
+            "PATH": "../assets/cat/walk/walk_",
+            "FRAMES": 3,
+            "TYPE": "LOOP",
+            "DELAY": 100
+        }
+    }
+}
