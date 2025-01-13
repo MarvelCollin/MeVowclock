@@ -1,0 +1,13 @@
+#catCanvas {
+    /* background-color: #f5f5f5; */
+    display: block;
+    image-rendering: pixelated;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* width: 100vw; */
+    margin: 0 !important;
+    /* height: 100vh; */
+    z-index: 1;
+    pointer-events: none;
+}

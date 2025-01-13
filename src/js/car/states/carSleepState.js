@@ -28,7 +28,7 @@ export class CarSleepState {
             }
             
             const loadedImages = await this.spriteLoader.loadSprites(spritePaths);
-            console.log('Loaded images:', loadedImages.length);
+            // console.log('Loaded images:', loadedImages.length);
             this.car.spriteHandler.setSprites(loadedImages, sleepConfig.DELAY);
         } catch (error) {
             console.error('Failed to initialize sleep sprites:', error);

@@ -33,7 +33,7 @@ function resizeCanvas() {
   cats.forEach(cat => {
       cat.setPosition(
         Math.random() * (canvas.width / dpr - 64) + 32, 
-        window.innerHeight - 100 
+        window.innerHeight - 100
       ); 
   });
 }
@@ -53,7 +53,7 @@ function gameLoop(timestamp) {
       if (sprite) {
           const pos = cat.getPosition();
           const isFlipped = cat.getDirection() === Direction.LEFT; 
-          renderer.drawSprite(sprite, pos.x, pos.y, isFlipped, 3);  
+          renderer.drawSprite(sprite, pos.x, pos.y, isFlipped, 1.5);  
       }
   });
 

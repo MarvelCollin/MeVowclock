@@ -4,11 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Digital Clock</title>
 </head>
-<body>
+<body class="bg-gradient-to-r from-gray-100 to-blue-50">
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <div id="settings-toggle">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <div id="settings-sidebar" class="sidebar">
+        <div class="sidebar-header flex justify-between items-center p-4 bg-white shadow-md">
+            <h3 class="text-xl font-semibold">Data Configuration</h3>
+            <button id="close-sidebar" class="text-gray-600 hover:text-gray-800"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sidebar-content p-4">
+            <div class="config-section mb-6">
+                <h4 class="text-lg font-medium mb-2">Display Settings</h4>
+                <div class="setting-item flex justify-between items-center mb-4">
+                    <label for="show-cats" class="text-md">Show Cats</label>
+                    <input type="checkbox" id="show-cats" checked class="form-checkbox h-5 w-5 text-blue-600">
+                </div>
+            </div>
+
+
+            <div class="config-section mb-6">
+                <h4 class="text-lg font-medium mb-2">Proses Pengumpulan</h4>
+                <div class="input-group flex mb-4">
+                    <input type="text" id="newProsesPengumpulan" placeholder="new item | **text** to highlight" class="flex-1 p-2 border border-blue-500 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button id="addProsesPengumpulan" class="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul id="prosesPengumpulanList" class="config-list space-y-2">
+                </ul>
+                <button id="resetDefaults" class="reset-button bg-red-500 text-white p-2 rounded-md hover:bg-red-600 mt-4">Reset to Default</button>
+            </div>
+        </div>
+    </div>
+
     <canvas id="catCanvas"></canvas>
     <div id="setup-screen" class="container">
         <h2>⏰ MeVclock</h2>
@@ -29,33 +65,10 @@
     <div id="clock-screen" class="container hidden">
         <div class="split-layout">
             <div class="notes-section">
-                <h3><i class="fas fa-clipboard-list"></i> Proses Pengerjaan:
-                    <button id="editNotesButton" class="edit-notes-btn"><i class="fas fa-edit"></i></button>
-                </h3>
-                <ol>
-                    <li>Jangan lupa spam Ctrl + S (Save)</li>
-                </ol>
-                <div id="editProsesPengerjaan" class="edit-note hidden">
-                    <input type="text" id="newProsesPengerjaan" placeholder="Add new note">
-                    <button id="saveProsesPengerjaan">Save</button>
-                </div>
-                
-                <h3><i class="fas fa-upload"></i> Proses Pengumpulan:
-                    <button id="editNotesButtonPengumpulan" class="edit-notes-btn"><i class="fas fa-edit"></i></button>
-                </h3>
-                <ol>
-                    <li>Ctrl + S di semua aplikasi pengerjaan</li>
-                    <li>Pastikan extension aplikasi sudah benar</li>
-                    <li>Tutup aplikasinya</li>
-                    <li>Zip Filenya</li>
-                    <li>Upload ke website + FTP</li>
-                    <li>Download ulang dan pastikan sudah benar</li>
-                    <li>Kabarin Assisten Lab kalau sudah</li>
-                    <li>Finalize</li>
-                </ol>
-                <div id="editProsesPengumpulan" class="edit-note hidden">
-                    <input type="text" id="newProsesPengumpulan" placeholder="Add new note">
-                    <button id="saveProsesPengumpulan">Save</button>
+                <div class="note-group">
+                    <h3>Proses Pengumpulan</h3>
+                    <ol id="pengumpulanList">
+                    </ol>
                 </div>
             </div>
             <div class="clock-section">

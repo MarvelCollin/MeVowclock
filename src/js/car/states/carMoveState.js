@@ -17,7 +17,7 @@ export class CarMoveState {
             
             const assets = await response.json();
             const config = this.isRunning ? assets.CAT.RUN : assets.CAT.WALK;
-            console.log('Loading movement sprites:', config);
+            // console.log('Loading movement sprites:', config);
             
             const spritePaths = [];
             for(let i = 1; i <= config.FRAMES; i++) {
