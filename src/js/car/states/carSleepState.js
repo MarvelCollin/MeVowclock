@@ -18,15 +18,9 @@ export class CarSleepState {
             const assets = await response.json();
             // console.log('Assets loaded:', assets);
             
-            const goingToSleepConfig = assets.CAT.GOING_TO_SLEEP;
             const sleepConfig = assets.CAT.SLEEP;
             
             const spritePaths = [];
-            for(let i = 1; i <= goingToSleepConfig.FRAMES; i++) {
-                const path = `/assets/cat/going_to_sleep/sleep_${i}.png`;
-                // console.log('Adding sprite path:', path);
-                spritePaths.push(path);
-            }
             for(let i = 1; i <= sleepConfig.FRAMES; i++) {
                 const path = `/assets/cat/sleep/sleep_${i}.png`;
                 // console.log('Adding sprite path:', path);

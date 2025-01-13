@@ -10,8 +10,8 @@ export class Car {
         this.spriteLoader = new SpriteLoader();
         this.state = null;
         this.spriteHandler = new CarSpriteHandler(this.spriteLoader);
-        this.position = initialPosition; // Use the passed initial position
-        this.targetPosition = { x: 0, y: initialPosition.y }; // Keep y fixed
+        this.position = initialPosition; 
+        this.targetPosition = { x: 0, y: initialPosition.y }; 
         this.moveTimeout = null;
         this.setDirection(Direction.LEFT); 
         this.setState('idle');
@@ -29,7 +29,7 @@ export class Car {
             switch(randomState) {
                 case 'walk':
                     let newTargetX;
-                    const minDistance = 100; // Minimum distance to ensure movement
+                    const minDistance = 100;
                     do {
                         newTargetX = Math.random() * (canvas.width - 64) + 32;
                     } while (Math.abs(newTargetX - this.position.x) < minDistance);
@@ -38,7 +38,7 @@ export class Car {
                         x: newTargetX,
                         y: canvas.height - 100
                     };
-                    
+                
                     if (this.targetPosition.x < this.position.x) {
                         this.setDirection(Direction.LEFT);
                     } else {
@@ -70,7 +70,7 @@ export class Car {
 
     update(timestamp) {
         if (this.state) {
-            // console.log(this.state);
+            console.log(this.state);
             const currentTime = Date.now();
             const stateElapsed = currentTime - this.stateStartTime;
 

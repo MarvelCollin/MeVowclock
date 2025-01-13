@@ -20,15 +20,19 @@ for (let i = 0; i < NUMBER_OF_CATS; i++) {
     cats.push(cat);
 }
 
-let lastTime = 0;
-
 const canvas = document.getElementById("catCanvas");
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+  canvas.style.width = `${window.innerWidth}px`;
+  canvas.style.height = `${window.innerHeight}px`;
+  
+  renderer.ctx.scale(dpr, dpr);
+
   cats.forEach(cat => {
       cat.setPosition(
-        Math.random() * (canvas.width - 64) + 32, 
+        Math.random() * (canvas.width / dpr - 64) + 32, 
         window.innerHeight - 100 
       ); 
   });

@@ -12,9 +12,9 @@ export class Renderer {
     this.ctx = this.canvas.getContext("2d");
     this.sprites = new Map();
 
-    this.ctx.imageSmoothingEnabled = false;
-    this.ctx.webkitImageSmoothingEnabled = false;
-    this.ctx.mozImageSmoothingEnabled = false;
+    this.ctx.imageSmoothingEnabled = true; // Enable smoothing for better quality
+    this.ctx.webkitImageSmoothingEnabled = true;
+    this.ctx.mozImageSmoothingEnabled = true;
 
     this.scale = defaultScale;
     this.spriteLoader = new SpriteLoader();
@@ -37,6 +37,7 @@ export class Renderer {
 
     this.ctx.scale(scale, scale);
 
+    // Adjust position for high-DPI displays
     this.ctx.translate(x / scale, y / scale);
 
     if (flipX) {
@@ -64,14 +65,14 @@ export class Renderer {
     const scaledHeight = spriteHeight * this.scale;
 
     return {
-      x: Math.max(0, Math.min(x, this.canvas.width - scaledWidth)),
-      y: Math.max(0, Math.min(y, this.canvas.height - scaledHeight)),
+      x: Math.max(0, Math.min(x, this.canvas.width / this.scale - scaledWidth)),
+      y: Math.max(0, Math.min(y, this.canvas.height / this.scale - scaledHeight)),
     };
   }
 
   resizeCanvas(width, height) {
     this.canvas.width = width;
     this.canvas.height = height;
-    this.ctx.imageSmoothingEnabled = false;
+    this.ctx.imageSmoothingEnabled = true; // Enable smoothing after resizing
   }
 }

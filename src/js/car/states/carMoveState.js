@@ -33,34 +33,26 @@ export class CarMoveState {
 
     update() {
         const position = this.car.getPosition();
-        const direction = this.car.getDirection();
+        let direction = this.car.getDirection();
         const canvas = document.getElementById('catCanvas');
         
-        let moved = false;
+        const previousX = position.x; 
 
-        const maxX = canvas.width;
-        switch(direction) {
-            case Direction.LEFT:
-                if (position.x > 32) {
-                    position.x -= this.speed;
-                    moved = true;
-                }
-                break;
-            case Direction.RIGHT:
-                if (position.x < maxX - 64) {
-                    position.x += this.speed;
-                    moved = true;
-                }
-                break;
+        position.x += this.speed * (direction === Direction.LEFT ? -1 : 1);
+
+        position.x = Math.max(0, Math.min(position.x, canvas.width - 64)); 
+
+        // Update the car's position
+        this.car.setPosition(position.x, position.y);
+
+        if (position.x === previousX) {
+            this.car.setState('idle');
         }
 
-        if (moved) {
-            this.car.setPosition(position.x, position.y);
-        } else {
-            this.car.setDirection(
-                direction === Direction.LEFT ? Direction.RIGHT : Direction.LEFT
-            );
+        if (position.x <= 0) {
+            this.car.setDirection(Direction.RIGHT);
+        } else if (position.x >= canvas.width - 64) {
+            this.car.setDirection(Direction.LEFT);
         }
-
     }
 }

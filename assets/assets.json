@@ -24,11 +24,6 @@
             "PATH": "../../assets/cat/walk/walk_",
             "FRAMES": 3,
             "DELAY": 100
-        },
-        "GOING_TO_SLEEP": {
-            "PATH": "../../assets/cat/going_to_sleep/sleep_",
-            "FRAMES": 5,
-            "DELAY": 500
         }
     }
 }
