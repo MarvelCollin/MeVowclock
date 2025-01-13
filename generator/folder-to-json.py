@@ -37,7 +37,7 @@ def scan_folder(base_path):
                 file_pattern = base_name
             
             # Tambahin ../assets/ di depan path
-            path = "../assets/" + os.path.join(relative_path, file_pattern).replace("\\", "/")
+            path = "../../assets/" + os.path.join(relative_path, file_pattern).replace("\\", "/")
             current_dict[base_pattern] = {
                 "PATH": path,
                 "FRAMES": len(frames),

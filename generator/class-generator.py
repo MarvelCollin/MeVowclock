@@ -74,7 +74,7 @@ class Assets {
         if (Assets.assets) {
             return Assets.assets;
         }
-        const response = await fetch('../assets/assets.json');
+        const response = await fetch('../../assets/assets.json');
         if (!response.ok) {
             throw new Error('Waduh error nih: ' + response.statusText);
         }

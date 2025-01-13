@@ -97,3 +97,20 @@ document.getElementById('startTime').addEventListener('keydown', (e) => {
         document.getElementById('endTime').focus();
     }
 });
+
+import { Car } from './car/car.js';
+import { Renderer } from './car/helper/renderer.js';
+import { Direction } from './car/helper/direction.js';
+
+const renderer = new Renderer('catCanvas');
+const cat = new Car();
+let lastTime = 0;
+
+const canvas = document.getElementById('catCanvas');
+canvas.width = 300;
+canvas.height = 300;
+cat.setPosition(
+    canvas.width / 2 - 32,
+    canvas.height / 2 - 32
+);
+

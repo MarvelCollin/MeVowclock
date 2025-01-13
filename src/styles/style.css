@@ -598,3 +598,16 @@ input::placeholder {
 .edit-note button:hover {
     background: #34495e;
 }
+
+#catCanvas {
+    border: 1px solid #333;
+    background: #f0f0f0;
+    margin: 10px auto;
+    display: block;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    display: block;
+    image-rendering: pixelated;
+}
