@@ -1,7 +1,8 @@
 import { Direction } from './direction.js';
 
 export class CarSpriteHandler {
-    constructor() {
+    constructor(spriteLoader) {
+        this.spriteLoader = spriteLoader;
         this.currentFrame = 0;
         this.frameCount = 0;
         this.direction = Direction.RIGHT;

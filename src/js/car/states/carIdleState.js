@@ -1,7 +1,9 @@
+import { SpriteLoader } from '../helper/spriteLoader.js';
+
 export class CarIdleState {
-    constructor(car) {
+    constructor(car, spriteLoader) {
         this.car = car;
-        this.loadedSprites = [];
+        this.spriteLoader = spriteLoader; // Use the passed SpriteLoader
         this.initializeSprite();
     }
 
@@ -19,31 +21,11 @@ export class CarIdleState {
                 spritePaths.push(`${idleConfig.PATH}${i}.png`);
             }
             
-            await this.loadSprites(spritePaths);
-            this.car.spriteHandler.setSprites(this.loadedSprites, idleConfig.DELAY);
+            const loadedSprites = await this.spriteLoader.loadSprites(spritePaths);
+            this.car.spriteHandler.setSprites(loadedSprites, idleConfig.DELAY);
         } catch (error) {
             console.error('Failed to initialize idle sprites:', error);
         }
-    }
-
-    async loadSprites(paths) {
-        try {
-            const loadedImages = await Promise.all(
-                paths.map(path => this.loadImage(path))
-            );
-            this.car.updateSprite(loadedImages);
-        } catch (error) {
-            console.error('Error loading sprites:', error);
-        }
-    }
-
-    loadImage(path) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`Failed to load image: ${path}`));
-            img.src = path;
-        });
     }
 
     update() {

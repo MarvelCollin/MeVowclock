@@ -2,7 +2,7 @@ import { Car } from "./car/car.js";
 import { Renderer } from "./car/helper/renderer.js";
 import { Direction } from "./car/helper/direction.js";
 
-const renderer = new Renderer("catCanvas");
+const renderer = new Renderer("catCanvas", 2); // Set default scale to 2
 const cat = new Car();
 let lastTime = 0;
 
@@ -27,7 +27,7 @@ function gameLoop(timestamp) {
   if (sprite) {
     const pos = cat.getPosition();
     const isFlipped = cat.getDirection() === Direction.LEFT; 
-    renderer.drawSprite(sprite, pos.x, pos.y, isFlipped);
+    renderer.drawSprite(sprite, pos.x, pos.y, isFlipped, 3);  
   }
 
   requestAnimationFrame(gameLoop);

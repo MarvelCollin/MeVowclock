@@ -1,10 +1,12 @@
 import { Direction } from '../helper/direction.js';
+import { SpriteLoader } from '../helper/spriteLoader.js';
 
 export class CarMoveState {
-    constructor(car, isRunning = false) {
+    constructor(car, isRunning = false, spriteLoader) {
         this.car = car;
         this.isRunning = isRunning;
-        this.speed = isRunning ? 5 : 2;
+        this.speed = isRunning ? 4 : 2;
+        this.spriteLoader = spriteLoader; 
         this.initializeSprite();
     }
 
@@ -22,24 +24,11 @@ export class CarMoveState {
                 spritePaths.push(`${config.PATH}${i}.png`);
             }
             
-            await this.loadSprites(spritePaths);
-            this.car.spriteHandler.setSprites(this.loadedSprites, config.DELAY);
+            const loadedSprites = await this.spriteLoader.loadSprites(spritePaths);
+            this.car.spriteHandler.setSprites(loadedSprites, config.DELAY);
         } catch (error) {
             console.error('Failed to initialize move sprites:', error);
         }
-    }
-
-    async loadSprites(spritePaths) {
-        this.loadedSprites = await Promise.all(spritePaths.map(path => this.loadImage(path)));
-    }
-
-    loadImage(path) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = path;
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-        });
     }
 
     update() {

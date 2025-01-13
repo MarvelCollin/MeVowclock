@@ -3,11 +3,13 @@ import { CarMoveState } from './states/carMoveState.js';
 import { CarSleepState } from './states/carSleepState.js';
 import { CarSpriteHandler } from './helper/carSpriteHandler.js';
 import { Direction } from './helper/direction.js';
+import { SpriteLoader } from './helper/spriteLoader.js';
 
 export class Car {
     constructor() {
+        this.spriteLoader = new SpriteLoader();
         this.state = null;
-        this.spriteHandler = new CarSpriteHandler();
+        this.spriteHandler = new CarSpriteHandler(this.spriteLoader);
         this.position = { x: 64, y: window.innerHeight - 100 }; // Start from bottom left
         this.targetPosition = { x: 0, y: 0 };
         this.moveTimeout = null;
@@ -75,7 +77,7 @@ export class Car {
                 }
             }
 
-            // Let the current state updae itself
+            // Let the current state update itself
             this.state.update();
             this.spriteHandler.updateFrame(timestamp);
         }
@@ -96,16 +98,16 @@ export class Car {
     setState(stateName) {
         switch(stateName) {
             case 'idle':
-                this.state = new CarIdleState(this);
+                this.state = new CarIdleState(this, this.spriteLoader);
                 break;
             case 'sleep':
-                this.state = new CarSleepState(this);
+                this.state = new CarSleepState(this, this.spriteLoader);
                 break;
             case 'walk':
-                this.state = new CarMoveState(this, false);
+                this.state = new CarMoveState(this, false, this.spriteLoader);
                 break;
             case 'run':
-                this.state = new CarMoveState(this, true);
+                this.state = new CarMoveState(this, true, this.spriteLoader);
                 break;
         }
     }
@@ -119,6 +121,6 @@ export class Car {
         const canvas = document.getElementById('catCanvas');
         const margin = 20; // margin from bottom
         this.position.x = Math.max(0, Math.min(x, canvas.width - 64)); // assuming sprite width is 64
-        this.position.y = Math.max(0, Math.min(y, canvas.height - 64 - margin)); // ensuring some margin from bottom
+        this.position.y = Math.max(64 + margin, Math.min(y, canvas.height)); // y is now the bottom position
     }
 }
