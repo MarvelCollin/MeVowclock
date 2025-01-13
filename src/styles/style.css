@@ -82,6 +82,8 @@ body {
     max-width: 1200px;
     width: 95%;
     border: none;
+    position: relative;
+    z-index: 2;
 }
 
 .timer-controls {
@@ -127,6 +129,8 @@ body {
     padding-right: 2.5rem; /* Make room for the icon */
     -webkit-appearance: none;
     appearance: none;
+    position: relative;
+    z-index: 2;
 }
 
 .time-input input:hover {
@@ -222,6 +226,8 @@ button {
     font-weight: bold;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     font-family: 'Orbitron', sans-serif;
+    position: relative;
+    z-index: 2;
 }
 
 button:hover {
@@ -348,6 +354,8 @@ input::placeholder {
     gap: 2rem;
     align-items: start;
     min-height: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .notes-section {
@@ -359,6 +367,8 @@ input::placeholder {
     backdrop-filter: blur(10px);
     border: 1px solid #e0e0e0;
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .notes-section:hover {
@@ -430,6 +440,8 @@ input::placeholder {
     align-items: center;
     height: auto;
     backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
 }
 
 /* Style for Edit Notes Button */
@@ -610,4 +622,11 @@ input::placeholder {
     margin: 20px auto;
     display: block;
     image-rendering: pixelated;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none; /* Makes canvas click-through */
 }

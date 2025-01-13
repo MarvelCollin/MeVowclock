@@ -11,8 +11,17 @@ export class CarSpriteHandler {
     }
 
     setSprites(sprites, delay = 100) {
+        if (!sprites || sprites.length === 0) {
+            console.error('Attempting to set empty sprites array');
+            return;
+        }
+        console.log('Setting sprites:', {
+            count: sprites.length,
+            delay: delay,
+            firstSprite: sprites[0]
+        });
         this.sprites = sprites;
-        this.frameCount = sprites ? sprites.length : 0;
+        this.frameCount = sprites.length;
         this.currentFrame = 0;
         this.frameDelay = delay;
     }
@@ -28,7 +37,14 @@ export class CarSpriteHandler {
     }
 
     getCurrentSprite() {
-        return this.sprites ? this.sprites[this.currentFrame] : null;
+        const sprite = this.sprites ? this.sprites[this.currentFrame] : null;
+        if (!sprite) {
+            console.log('No sprite available:', {
+                sprites: this.sprites?.length,
+                currentFrame: this.currentFrame
+            });
+        }
+        return sprite;
     }
 
     setDirection(direction) {

@@ -23,11 +23,15 @@ export class Renderer {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => {
+        console.log('Sprite loaded successfully:', spritePath);
         this.sprites.set(spritePath, img);
         resolve(img);
       };
-      img.onerror = () =>
+      img.onerror = (e) => {
+        console.error('Failed to load sprite:', spritePath, e);
         reject(new Error(`Failed to load sprite: ${spritePath}`));
+      };
+      console.log('Attempting to load sprite:', spritePath);
       img.src = spritePath;
     });
   }
@@ -37,21 +41,28 @@ export class Renderer {
 
     this.ctx.save();
 
-    const scaledWidth = sprite.width * this.scale;
-    const scaledHeight = sprite.height * this.scale;
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    this.ctx.ellipse(
+        x + sprite.width / 2, 
+        y + sprite.height, 
+        sprite.width / 3, 
+        10, 
+        0, 
+        0, 
+        Math.PI * 2
+    );
+    this.ctx.fill();
 
-    this.ctx.scale(this.scale, this.scale);
+    const scaleFactor = 2;
+    this.ctx.scale(scaleFactor, scaleFactor);
 
-    if (flipX) {
+    if (!flipX) {
       this.ctx.scale(-1, 1);
       x = -x - sprite.width;
     }
 
-    this.ctx.drawImage(sprite, x / this.scale, y / this.scale);
-    this.ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
-    this.ctx.shadowBlur = 4;
-    this.ctx.shadowOffsetY = 2;
-
+    this.ctx.drawImage(sprite, x / scaleFactor, y / scaleFactor);
+    
     this.ctx.restore();
   }
 

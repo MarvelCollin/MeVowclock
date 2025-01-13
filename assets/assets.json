@@ -1,28 +1,34 @@
 {
     "CAT": {
         "SLEEP": {
-            "PATH": "../assets/cat/sleep/sleep_",
+            "PATH": "../../assets/cat/sleep/sleep_",
             "FRAMES": 9,
-            "TYPE": "LOOP",
-            "DELAY": 100
+            "DELAY": 500
         },
-        "IDLE": {
-            "PATH": "../assets/cat/idle_front/idle_",
+        "IDLE_FRONT": {
+            "PATH": "../../assets/cat/idle_front/idle_",
             "FRAMES": 3,
-            "TYPE": "LOOP",
+            "DELAY": 800
+        },
+        "IDLE_BACK": {
+            "PATH": "../../assets/cat/idle_back/idle_",
+            "FRAMES": 3,
             "DELAY": 100
         },
         "RUN": {
-            "PATH": "../assets/cat/run/run_",
+            "PATH": "../../assets/cat/run/run_",
             "FRAMES": 3,
-            "TYPE": "LOOP",
             "DELAY": 100
         },
         "WALK": {
-            "PATH": "../assets/cat/walk/walk_",
+            "PATH": "../../assets/cat/walk/walk_",
             "FRAMES": 3,
-            "TYPE": "LOOP",
             "DELAY": 100
+        },
+        "GOING_TO_SLEEP": {
+            "PATH": "../../assets/cat/going_to_sleep/sleep_",
+            "FRAMES": 5,
+            "DELAY": 500
         }
     }
 }
