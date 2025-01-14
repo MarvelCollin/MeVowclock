@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeSidebar: document.getElementById('close-sidebar'),
         showCatsCheckbox: document.getElementById('show-cats'),
         catCanvas: document.getElementById('catCanvas'),
-        overlay: document.getElementById('sidebar-overlay')
+        overlay: document.getElementById('sidebar-overlay'),
+        startButton: document.getElementById('startButton'),
+        resetDefaults: document.getElementById('resetDefaults') // Added resetDefaults
     };
 
     for (const [key, element] of Object.entries(elements)) {
@@ -28,8 +30,33 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    if (!localStorage.getItem('prosesPengumpulan')) {
-        localStorage.setItem('prosesPengumpulan', JSON.stringify(defaultData.prosesPengumpulan));
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function eraseCookie(name) {
+        document.cookie = name + '=; Max-Age=-99999999;';
+    }
+
+    if (!getCookie('prosesPengumpulan')) {
+        setCookie('prosesPengumpulan', JSON.stringify(defaultData.prosesPengumpulan), 1);
     }
 
     function openSidebar() {
@@ -37,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.overlay.classList.add('active');
         elements.settingsToggle.style.display = 'none';
         elements.settingsToggle.style.opacity = '0';
-        console.log("aa");
         document.body.style.overflow = 'hidden';
     }
     
@@ -99,12 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
 
         const items = Array.from(list.children).map(item => item.textContent.trim());
-        localStorage.setItem(storageKey, JSON.stringify(items));
+        setCookie(storageKey, JSON.stringify(items), 1);
 
         li.querySelector('.delete-item').addEventListener('click', () => {
             li.remove();
             const updatedItems = Array.from(list.children).map(item => item.textContent.trim());
-            localStorage.setItem(storageKey, JSON.stringify(updatedItems));
+            setCookie(storageKey, JSON.stringify(updatedItems), 1);
         });
 
         updateNotesList(); 
@@ -118,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function loadSavedItems() {
-        const pengumpulan = JSON.parse(localStorage.getItem('prosesPengumpulan')) || defaultData.prosesPengumpulan;
+        const pengumpulan = JSON.parse(getCookie('prosesPengumpulan')) || defaultData.prosesPengumpulan;
         pengumpulanList.innerHTML = '';
 
         pengumpulan.forEach((item, index) => {
@@ -138,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const text = item.querySelector('.text').innerHTML.replace(/<strong>(.*?)<\/strong>/g, '**$1**');
                     return text;
                 });
-                localStorage.setItem('prosesPengumpulan', JSON.stringify(updatedItems));
+                setCookie('prosesPengumpulan', JSON.stringify(updatedItems), 1);
                 updateNotesList();
             });
         });
@@ -154,46 +180,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggleSettingsVisibility(false);
 
-    document.getElementById("startButton").addEventListener("click", () => {
-        startTime = document.getElementById("startTime").value;
-        endTime = document.getElementById("endTime").value;
+    if (elements.startButton) {
+        elements.startButton.addEventListener('click', () => {
+            startTime = document.getElementById("startTime").value;
+            endTime = document.getElementById("endTime").value;
 
-        if (!startTime || !endTime) {
-            showError("Please set both start and end time");
-            return;
-        }
+            if (!startTime || !endTime) {
+                showError("Please set both start and end time");
+                return;
+            }
 
-        const [startHours, startMinutes] = startTime.split(":");
-        const [endHours, endMinutes] = endTime.split(":");
-        const start = parseInt(startHours) * 60 + parseInt(startMinutes);
-        const end = parseInt(endHours) * 60 + parseInt(endMinutes);
+            const [startHours, startMinutes] = startTime.split(":");
+            const [endHours, endMinutes] = endTime.split(":");
+            const start = parseInt(startHours) * 60 + parseInt(startMinutes);
+            const end = parseInt(endHours) * 60 + parseInt(endMinutes);
 
-        if (start >= end) {
-            showError("End time must be after start time");
-            return;
-        }
+            if (start >= end) {
+                showError("End time must be after start time");
+                return;
+            }
 
-        document.getElementById("error-message").classList.add("hidden");
-        document.getElementById("setup-screen").classList.add("hidden");
-        document.getElementById("clock-screen").classList.remove("hidden");
-        toggleSettingsVisibility(true); 
-        updateTime();
-    });
+            document.getElementById("error-message").classList.add("hidden");
+            document.getElementById("setup-screen").classList.add("hidden");
+            document.getElementById("clock-screen").classList.remove("hidden");
+            toggleSettingsVisibility(true); 
+            updateTime();
+        });
+    }
 
-    document.getElementById("resetButton").addEventListener("click", () => {
-        document.getElementById("clock-screen").classList.add("hidden");
-        document.getElementById("setup-screen").classList.remove("hidden");
-        document.getElementById("startTime").value = "";
-        document.getElementById("endTime").value = "";
-        startTime = null;
-        endTime = null;
-        toggleSettingsVisibility(false); 
-    });
+    if (elements.resetDefaults) {
+        elements.resetDefaults.addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset to default settings?')) {
+                const uppercasedDefaults = defaultData.prosesPengumpulan.map(item => item.toUpperCase());
+                setCookie('prosesPengumpulan', JSON.stringify(uppercasedDefaults), 1);
+                loadSavedItems();
+                updateNotesList();
+            }
+        });
+    }
+
     function updateNotesList() {
         const pengumpulanList = document.getElementById('pengumpulanList');
         
         if (pengumpulanList) {
-            const pengumpulan = JSON.parse(localStorage.getItem('prosesPengumpulan') || '[]');
+            const pengumpulan = JSON.parse(getCookie('prosesPengumpulan') || '[]');
 
             function formatText(text, index) {
                 const processedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -216,11 +246,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('resetDefaults').addEventListener('click', () => {
         if (confirm('Are you sure you want to reset to default settings?')) {
             const uppercasedDefaults = defaultData.prosesPengumpulan.map(item => item.toUpperCase());
-            localStorage.setItem('prosesPengumpulan', JSON.stringify(uppercasedDefaults));
+            setCookie('prosesPengumpulan', JSON.stringify(uppercasedDefaults), 1);
             loadSavedItems();
             updateNotesList();
         }
     });
+
+    setInterval(() => {
+        updateTime();
+    }, 1000);
 });
 
 let startTime, endTime;
@@ -299,14 +333,6 @@ document.getElementById("startButton").addEventListener("click", () => {
   updateTime();
 });
 
-document.getElementById("resetButton").addEventListener("click", () => {
-  document.getElementById("clock-screen").classList.add("hidden");
-  document.getElementById("setup-screen").classList.remove("hidden");
-  document.getElementById("startTime").value = "";
-  document.getElementById("endTime").value = "";
-  startTime = null;
-  endTime = null;
-});
 
 setInterval(updateTime, 1000);
 
@@ -318,4 +344,7 @@ document.getElementById("startTime").addEventListener("keydown", (e) => {
 });
 
 document.getElementById("startTime").addEventListener("keydown", (e) => {
-  if (e.key === "Tab" && !e.shiftKey) {    document.getElementById("endTime").focus();  }});
+  if (e.key === "Tab" && !e.shiftKey) {
+    document.getElementById("endTime").focus();
+  }
+});

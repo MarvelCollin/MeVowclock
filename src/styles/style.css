@@ -399,25 +399,6 @@ h3 {
   font-family: "Orbitron", sans-serif;
 }
 
-#resetButton {
-  margin-top: 1rem;
-  background: #e74c3c;
-  width: 100%;
-}
-
-#resetButton:hover {
-  background: #c0392b;
-}
-
-.timer-controls label {
-  color: #2c3e50;
-  font-weight: bold;
-}
-
-input::placeholder {
-  color: #95a5a6;
-}
-
 .error-message {
   background-color: var(--error-bg);
   color: var(--error-color);
@@ -861,20 +842,7 @@ input::placeholder {
   visibility: visible;
 }
 
-.reset-button {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: 1rem;
-  border: none;
-  border-radius: 8px;
-  background: white;
-  color: var(--accent-color);
-  cursor: pointer;
-  transition: background 0.3s ease;
-  font-size: 1rem;
-}
-
-.reset-button:hover {
+.reset-default-button {
   width: 100%;
   padding: 0.8rem;
   margin-top: 1rem;
@@ -885,4 +853,9 @@ input::placeholder {
   cursor: pointer;
   transition: background 0.3s ease;
   font-size: 1rem;
+  font-family: "Orbitron", sans-serif;
+}
+
+.reset-default-button:hover {
+  background: #c0392b;
 }
